@@ -21,24 +21,20 @@ This command deploys etcd on the Kubernetes cluster using the default configurat
 
 ## Configuration
 
-The following table lists the configurable parameters of the etcd-defrag chart and their default values:
+You can configure the schedule and other parameters by modifying the values.yaml file. Below are the available configuration options:
 
 | Parameter                      | Description                                        | Default                   |
 |--------------------------------|----------------------------------------------------|---------------------------|
-| `replicaCount`                 | Number of etcd replicas                            | `1`                       |
-| `image.repository`             | Image repository                                   | `bitnami/etcd`            |
-| `image.tag`                    | Image tag                                          | `3.5.15-debian-12-r6`     |
-| `auth.rbac.create`             | Enable RBAC authentication                         | `true`                    |
-| `auth.rbac.rootPassword`       | Password for the root user                         | `""`                      |
-| `persistence.enabled`          | Enable persistence using Persistent Volume Claims  | `true`                    |
-| `persistence.size`             | Size of the PVC                                    | `8Gi`                     |
 | `defrag.schedule`              | Cron schedule for defragmentation job              | `"0 3 * * *"`             |
 
-You can specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
+
+To modify these values, you can either update the values.yaml file or use --set flag with the helm install command.
+Example:
 
 ```bash
-helm install my-etcd ./ --namespace default --set replicaCount=3
+helm install my-etcd-defrag . --set defrag.schedule="0 2 * * *"
 ```
+
 
 Alternatively, use a YAML file to specify the values for the parameters:
 
@@ -49,34 +45,9 @@ helm install my-etcd ./ --namespace default -f values.yaml
 ### Example `values.yaml`
 
 ```yaml
-replicaCount: 3
-
-image:
-  repository: bitnami/etcd
-  tag: 3.5.15-debian-12-r6
-
-auth:
-  rbac:
-    create: true
-    rootPassword: your-root-password
-
-persistence:
-  enabled: true
-  size: 8Gi
-
 defrag:
   schedule: "0 3 * * *"
 ```
-
-### Explanation
-
-- **`replicaCount`:** Sets the number of etcd replicas to 3.
-- **`image.repository` and `image.tag`:** Specify the Docker image and version to use.
-- **`auth.rbac`:** Configures role-based access control (RBAC), with an example for setting the root user password.
-- **`persistence`:** Enables persistence with a PVC of size 8Gi.
-- **`defrag.schedule`:** Cron schedule for the defragmentation job, set to run daily at 3 AM.
-
-This example provides a basic configuration template for deploying the etcd chart with custom settings. You can expand upon it or modify it to fit your specific needs. Let me know if you need anything else!
 
 ### Testing
 
