@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etcd-defrag
+  labels:
+    app.kubernetes.io/name: etcd
+spec:
+  schedule: "{{ .Values.defrag.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: etcd-defrag
+              image: bitnami/etcd:latest
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  etcdctl --endpoints=http://my-etcd.default.svc.cluster.local:2379 --user=root:$ETCD_ROOT_PASSWORD defrag
+              env:
+                - name: ETCDCTL_API
+                  value: "3"
+                - name: ETCD_ROOT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: my-etcd
+                      key: etcd-root-password
+              volumeMounts:
+                - name: etcd-certs
+                  mountPath: /etc/etcd/certs
+          restartPolicy: OnFailure
+          volumes:
+            - name: etcd-certs
+              secret:
+                secretName: etcd-certs
