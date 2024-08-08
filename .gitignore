@@ -1,0 +1,33 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Kubernetes
+.kube/
+
+# Maven
+target/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Node modules (if using Node.js in any part of the project)
+node_modules/
