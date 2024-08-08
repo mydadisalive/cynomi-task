@@ -90,7 +90,7 @@ You should see:
 Hello, etcd!
 ```
 
-2. **Test the Defragmentation CronJob:**
+3. **Test the Defragmentation CronJob:**
 
 Manually trigger the defragmentation job:
 ```bash
@@ -104,7 +104,7 @@ kubectl logs -l job-name=etcd-defrag-test -n <namespace>
 
 The output should confirm the defragmentation of the etcd database.
 
-2. **Clean Up:**
+4. **Clean Up:**
 ```bash
 kubectl delete job etcd-defrag-test -n <namespace>
 ```
