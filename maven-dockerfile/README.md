@@ -41,12 +41,3 @@ docker run --rm -it -e MAVEN_HOME=/custom/maven/path -e MAVEN_VERSION=3.9.8 my-m
 ```
 
 This configuration allows you to adjust paths or Maven versions as needed for specific projects or environments.
-
-
-### Explanation
-
-- **Table**: A table is used to succinctly present the configuration options, making it easy to read and reference.
-  
-- **Description**: Each variable is described in detail below the table, providing more context on what each setting does.
-
-- **Example**: An example command is given to show how to set environment variables when running the Docker container.
